@@ -1,0 +1,56 @@
+{
+  "name": "Event_Management_FK",
+  "version": "1.0.0",
+  "description": "The event_management_fk project is a application based on the SAP CAP (Cloud Application Programming) designed to manage events and participants, it allows creating, updating, and deleting events and participants, and also has additional functions to cancel and reopen events.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap-cloud-sdk/connectivity": "^3.24.0",
+    "@sap-cloud-sdk/http-client": "^3.24.0",
+    "@sap-cloud-sdk/resilience": "^3.24.0",
+    "@sap/cds": "^8",
+    "@sap/cds-common-content": "^2.1.0",
+    "@sap/xssec": "^4",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.7.0",
+    "@cap-js/sqlite": "^1.7.8",
+    "@sap/cds-dk": "^8.6.1"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "cds": {
+    "fiori": {
+      "preview": true
+    },
+    "server": {
+      "index": true
+    },
+    "requires": {
+      "auth": "mocked",
+      "db": "sqlite",
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata-v2",
+        "model": "srv/external/API_BUSINESS_PARTNER",
+        "credentials": {
+          "url": "https://my408665-api.s4hana.cloud.sap",
+          "path": "/sap/opu/odata/sap/API_BUSINESS_PARTNER/",
+          "authentication": "BasicAuthentication",
+          "username": "CAP_BOOTCAMP_S4_API_USER",
+          "password": "WS$UGgbhkG8EEvUpccCgmedHhmHRiWeZVGfvcUPE"
+        }
+      },
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa"
+      }
+    },
+    "sql": {
+      "native_hana_associations": false
+    }
+  }
+}

@@ -1,0 +1,85 @@
+@baseUrl = http://localhost:4004
+@eventId = 3
+@participantId = 1
+
+# Test - Events
+
+# Create new event
+POST {{baseUrl}}/odata/v4/event-management/Events
+content-type: application/json
+
+{
+    "ID": 6,
+    "Name": "Advanced SAP Training Bootcaamp Medellin",
+    "StartDate": "2023-09-17",
+    "EndDate": "2024-12-20",
+    "Location": "Medellin, Colombia ",
+    "Description": "A comprehensive SAP training event designed for professionals who want to deepen their SAP knowledge and skills.",
+    "IsActive": true,
+    "IsCancelled": false
+}
+
+### Get all events
+GET {{baseUrl}}/odata/v4/event-management/Events
+
+### Get specific event
+GET {{baseUrl}}/odata/v4/event-management/Events({{eventId}})
+
+### Get Event with participants
+GET {{baseUrl}}/odata/v4/event-management/Events({{eventId}})?$expand=registrations
+
+
+### Cancel Event
+POST {{baseUrl}}/odata/v4/event-management/Events({{eventId}})/cancelEvent
+content-type: application/json
+
+{
+    "reason": "Event cancelled due to platform failure"
+}
+
+### Reopen Event
+POST {{baseUrl}}/odata/v4/event-management/Events({{eventId}})/reopenEvent
+
+### TEST - PARTICIPANTS 
+
+### Get all participants
+GET {{baseUrl}}/odata/v4/event-management/Participants
+
+### Get specific participant
+GET {{baseUrl}}/odata/v4/event-management/Participants({{participantId}})
+
+### Get participant with event
+GET {{baseUrl}}/odata/v4/event-management/Participants({{participantId}})?$expand=registrations
+
+### Create new participant
+POST {{baseUrl}}/odata/v4/event-management/createParticipant
+Content-Type: application/json
+
+{
+    "BusinessPartnerID": "1000001",
+    "FirstName": "John",
+    "LastName": "Doe",
+    "Email": "johndoe@example.com",
+    "Phone": "9876543210"
+}
+
+### Create Participant
+POST {{baseUrl}}/odata/v4/event-management/createParticipant
+Content-Type: application/json
+
+{
+    "BusinessPartnerID": "1000002",
+    "FirstName": "Camilo",
+    "LastName": "Cardenas",
+    "Email": "camilo.cardenas@example.com",
+    "Phone": "1234567890"
+}
+
+### Register Participant
+POST {{baseUrl}}/odata/v4/event-management/registerParticipant
+Content-Type: application/json
+
+{
+    "eventId": 6,
+    "participantId": 2
+}

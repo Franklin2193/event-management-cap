@@ -1,0 +1,77 @@
+_schema-version: 3.3.0
+ID: Event_Management_FK
+version: 1.0.0
+description: "The event_management_fk project is a application based on the SAP CAP (Cloud Application Programming) designed to manage events and
+  participants, it allows creating, updating, and deleting events and participants, and also has additional functions to cancel and reopen events."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: Event_Management_FK-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: Event_Management_FK-destination
+      - name: Event_Management_FK-db
+      - name: Event_Management_FK-auth
+
+  - name: Event_Management_FK-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: Event_Management_FK-db
+
+  - name: Event_Management_FK
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: Event_Management_FK-destination
+      - name: Event_Management_FK-auth  
+
+resources:
+  - name: Event_Management_FK-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  - name: Event_Management_FK-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: Event_Management_FK-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: Event_Management_FK-${org}-${space}
+        tenant-mode: dedicated

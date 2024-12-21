@@ -1,0 +1,16 @@
+ID,FirstName,LastName,Email,Phone,BusinessPartnerID
+1,Juan,Pérez,juan.perez@example.com,1234567890,BP001
+2,Ana,Gómez,ana.gomez@example.com,0987654321,BP002
+3,Carlos,Sánchez,carlos.sanchez@example.com,1122334455,BP003
+4,María,Lopez,maria.lopez@example.com,2233445566,BP004
+5,Luis,Martínez,luis.martinez@example.com,3344556677,BP005
+6,Laura,Suárez,laura.suarez@example.com,4455667788,BP006
+7,David,Ramírez,david.ramirez@example.com,5566778899,BP007
+8,Elena,Garcia,elena.garcia@example.com,6677889900,BP008
+9,Pedro,Fernández,pedro.fernandez@example.com,7788990011,BP009
+10,Carmen,Ortiz,carmen.ortiz@example.com,8899001122,BP010
+11,Antonio,Jiménez,antonio.jimenez@example.com,9900112233,BP011
+12,Sofía,Paredes,sofia.paredes@example.com,1010101010,BP012
+13,Raúl,Morales,raul.morales@example.com,1212121212,BP013
+14,Isabel,Castro,isabel.castro@example.com,1313131313,BP014
+15,Fernando,Ríos,fernando.rios@example.com,1414141414,BP015
