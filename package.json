@@ -13,6 +13,7 @@
     "@sap/cds": "^8",
     "@sap/cds-common-content": "^2.1.0",
     "@sap/xssec": "^4",
+    "dotenv": "^16.4.7",
     "express": "^4"
   },
   "devDependencies": {

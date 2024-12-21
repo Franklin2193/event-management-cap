@@ -53,7 +53,12 @@ modules:
           url: ~{srv-url}
           forwardAuthToken: true
       - name: Event_Management_FK-destination
-      - name: Event_Management_FK-auth  
+      - name: Event_Management_FK-auth
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
 
 resources:
   - name: Event_Management_FK-destination
